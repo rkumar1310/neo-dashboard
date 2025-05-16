@@ -1,23 +1,16 @@
 'use client'
 
-import Logo from '@/app/icon/Logo'
-import Analytics from '@/app/icon/Analytics'
-import Supervisor from '@/app/icon/Supervisor'
-import NeoAI from '@/app/icon/NeoAi'
 import Accounts from '@/app/icon/Accounts'
-import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
-import { Button } from '@/components/ui/button'
-import Image from 'next/image'
-import { useState } from 'react'
+import Analytics from '@/app/icon/Analytics'
+import Logo from '@/app/icon/Logo'
 import Logout from '@/app/icon/Logout'
+import NeoAI from '@/app/icon/NeoAI'
+import Supervisor from '@/app/icon/Supervisor'
+import { Button } from '@/components/ui/button'
+import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
+import { useState } from 'react'
 
-export default function Sidebar({
-  user,
-  onSignOut,
-}: {
-  user: any
-  onSignOut: () => void
-}) {
+export default function Sidebar({ user }: { user: any }) {
   const [expanded, setExpanded] = useState(true)
 
   return (
@@ -75,13 +68,14 @@ export default function Sidebar({
             </div>
             {expanded && (
               <ul>
-                <li
-                  className={`cursor-pointer rounded py-1 ${
+                <a
+                  href="/dashboard"
+                  className={`block cursor-pointer rounded py-1 ${
                     expanded ? 'pl-12' : 'flex justify-center'
                   } hover:bg-accent`}
                 >
                   Dashboard
-                </li>
+                </a>
               </ul>
             )}
           </div>
@@ -96,34 +90,38 @@ export default function Sidebar({
             </div>
             {expanded && (
               <ul>
-                <li
-                  className={`cursor-pointer rounded py-1 ${
+                <a
+                  href="/dashboard/all-autotask"
+                  className={`block cursor-pointer rounded py-1 ${
                     expanded ? 'pl-12' : 'flex justify-center'
                   } hover:bg-accent`}
                 >
                   All Autotask
-                </li>
-                <li
-                  className={`cursor-pointer rounded py-1 ${
+                </a>
+                <a
+                  href="/dashboard/l1-queue"
+                  className={`block cursor-pointer rounded py-1 ${
                     expanded ? 'pl-12' : 'flex justify-center'
                   } hover:bg-accent`}
                 >
                   L1 Queue
-                </li>
-                <li
-                  className={`cursor-pointer rounded py-1 ${
+                </a>
+                <a
+                  href="/dashboard/l2-queue"
+                  className={`block cursor-pointer rounded py-1 ${
                     expanded ? 'pl-12' : 'flex justify-center'
                   } hover:bg-accent`}
                 >
                   L2 Queue
-                </li>
-                <li
-                  className={`cursor-pointer rounded py-1 ${
+                </a>
+                <a
+                  href="/dashboard/azure"
+                  className={`block cursor-pointer rounded py-1 ${
                     expanded ? 'pl-12' : 'flex justify-center'
                   } hover:bg-accent`}
                 >
                   Azure
-                </li>
+                </a>
               </ul>
             )}
           </div>
@@ -138,29 +136,33 @@ export default function Sidebar({
             </div>
             {expanded && (
               <ul>
-                <li
-                  className={`cursor-pointer rounded py-1 ${
+                <a
+                  href="/dashboard/chat-assistant"
+                  className={`block cursor-pointer rounded py-1 ${
                     expanded ? 'pl-12' : 'flex justify-center'
                   } hover:bg-accent`}
                 >
                   Chat Assistant
-                </li>
-                <li
-                  className={`cursor-pointer rounded py-1 ${
+                </a>
+                <a
+                  href="/dashboard/knowledge-base"
+                  className={`block cursor-pointer rounded py-1 ${
                     expanded ? 'pl-12' : 'flex justify-center'
                   } hover:bg-accent`}
                 >
                   Knowledge Base
-                </li>
-                <li
-                  className={`cursor-pointer rounded py-1 ${
+                </a>
+                <a
+                  href="/dashboard/skills"
+                  className={`block cursor-pointer rounded py-1 ${
                     expanded ? 'pl-12' : 'flex justify-center'
                   } hover:bg-accent`}
                 >
                   Skills
-                </li>
-                <li
-                  className={`cursor-pointer rounded py-1 ${
+                </a>
+                <a
+                  href="/dashboard/workflows"
+                  className={`block cursor-pointer rounded py-1 ${
                     expanded ? 'pl-12' : 'flex justify-center'
                   } hover:bg-accent`}
                 >
@@ -168,7 +170,7 @@ export default function Sidebar({
                   <span className="ml-2 inline-flex h-6 w-6 items-center justify-center rounded-full bg-orange-100 text-xs font-semibold text-orange-800">
                     10
                   </span>
-                </li>
+                </a>
               </ul>
             )}
           </div>
@@ -183,20 +185,22 @@ export default function Sidebar({
             </div>
             {expanded && (
               <ul>
-                <li
-                  className={`cursor-pointer rounded py-1 ${
+                <a
+                  href="/dashboard/customers"
+                  className={`block cursor-pointer rounded py-1 ${
                     expanded ? 'pl-12' : 'flex justify-center'
                   } hover:bg-accent`}
                 >
                   Customers
-                </li>
-                <li
-                  className={`cursor-pointer rounded py-1 ${
+                </a>
+                <a
+                  href="/dashboard/integrations"
+                  className={`block cursor-pointer rounded py-1 ${
                     expanded ? 'pl-12' : 'flex justify-center'
                   } hover:bg-accent`}
                 >
                   Integrations
-                </li>
+                </a>
               </ul>
             )}
           </div>
@@ -231,7 +235,11 @@ export default function Sidebar({
             </div>
           </div>
         </div>
-        <form action={onSignOut}>
+        <form
+          action={() => {
+            window.location.href = '/auth/logout'
+          }}
+        >
           <Button size="sm" variant="ghost">
             <Logout className="h-5 w-5" />
           </Button>

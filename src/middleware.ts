@@ -1,25 +1,8 @@
-import { NextResponse, type NextRequest } from 'next/server'
-import { createMiddlewareClient } from '@/utils/supabase'
+import { NextRequest } from 'next/server'
+import { auth0 } from './lib/auth0'
 
 export async function middleware(request: NextRequest) {
-  try {
-    // This `try/catch` block is only here for the interactive tutorial.
-    // Feel free to remove once you have Supabase connected.
-    const { supabase, response } = createMiddlewareClient(request)
-
-    // Refresh session if expired - required for Server Components
-    // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
-    await supabase.auth.getSession()
-
-    return response
-  } catch (e) {
-    // If you are here, a Supabase client could not be created!
-    // This is likely because you have not set up environment variables.
-    // Check out http://localhost:3000 for Next Steps.
-    return NextResponse.next({
-      request: { headers: request.headers },
-    })
-  }
+  return await auth0.middleware(request)
 }
 
 export const config = {
@@ -28,9 +11,8 @@ export const config = {
      * Match all request paths except for the ones starting with:
      * - _next/static (static files)
      * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      */
-    '/((?!_next/static|_next/image|favicon.ico).*)',
+    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
   ],
 }
